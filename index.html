@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="一个用于整理照片、文字和时间记忆的个人图集纪念册。"
+    />
+    <title>我的图集纪念册</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <nav class="topbar" aria-label="主导航">
+        <a class="brand" href="#top" aria-label="回到顶部">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>我的图集纪念册</span>
+        </a>
+        <div class="nav-actions">
+          <a href="#album">图集</a>
+          <a href="#add-memory">添加</a>
+          <button class="icon-button" id="themeToggle" type="button" title="切换明暗主题" aria-label="切换明暗主题">
+            <span aria-hidden="true">◐</span>
+          </button>
+        </div>
+      </nav>
+
+      <section class="cover" id="top">
+        <div class="cover-copy">
+          <p class="eyebrow">Personal Memory Album</p>
+          <h1>把照片、时间和当时的心情，安静地放在一起。</h1>
+          <p>
+            这是你的中文个人图集纪念册第一版。上传照片，写下标题、日期、地点和一小段回忆，
+            它会保存在当前浏览器里。
+          </p>
+          <div class="cover-actions">
+            <a class="primary-action" href="#add-memory">添加第一张照片</a>
+            <button class="secondary-action" id="exportData" type="button">导出纪念册数据</button>
+          </div>
+        </div>
+        <div class="cover-board" aria-label="纪念册预览">
+          <figure class="memory-polaroid main">
+            <div class="sample-photo photo-one" role="img" aria-label="日落下的海边剪影"></div>
+            <figcaption>那些值得被记住的瞬间</figcaption>
+          </figure>
+          <figure class="memory-polaroid side">
+            <div class="sample-photo photo-two" role="img" aria-label="窗边的花和书"></div>
+            <figcaption>某个温柔的下午</figcaption>
+          </figure>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="panel add-panel" id="add-memory" aria-labelledby="addTitle">
+        <div class="section-heading">
+          <p class="eyebrow">Add Memory</p>
+          <h2 id="addTitle">添加一段回忆</h2>
+        </div>
+
+        <form class="memory-form" id="memoryForm">
+          <label class="upload-zone" for="photoInput">
+            <input id="photoInput" name="photo" type="file" accept="image/*" required />
+            <span class="upload-icon" aria-hidden="true">＋</span>
+            <strong>选择照片</strong>
+            <small>支持 JPG、PNG、WebP。照片只保存在你的浏览器本地。</small>
+            <img id="photoPreview" alt="" hidden />
+          </label>
+
+          <div class="form-fields">
+            <label>
+              <span>标题</span>
+              <input id="memoryTitle" name="title" type="text" maxlength="32" placeholder="例如：第一次去海边" required />
+            </label>
+            <label>
+              <span>日期</span>
+              <input id="memoryDate" name="date" type="date" />
+            </label>
+            <label>
+              <span>地点</span>
+              <input id="memoryPlace" name="place" type="text" maxlength="28" placeholder="例如：厦门 / 家里的阳台" />
+            </label>
+            <label>
+              <span>分类</span>
+              <select id="memoryCategory" name="category">
+                <option value="日常">日常</option>
+                <option value="旅行">旅行</option>
+                <option value="家人">家人</option>
+                <option value="朋友">朋友</option>
+                <option value="重要时刻">重要时刻</option>
+              </select>
+            </label>
+            <label class="wide">
+              <span>想写下的话</span>
+              <textarea id="memoryNote" name="note" rows="4" maxlength="180" placeholder="写一句当时的感受、故事，或者想对未来说的话。"></textarea>
+            </label>
+            <button class="primary-action wide" type="submit">保存到纪念册</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="album-section" id="album" aria-labelledby="albumTitle">
+        <div class="section-heading album-heading">
+          <div>
+            <p class="eyebrow">Album</p>
+            <h2 id="albumTitle">我的图集</h2>
+          </div>
+          <div class="album-tools" aria-label="图集工具">
+            <button class="tool-button active" data-filter="全部" type="button">全部</button>
+            <button class="tool-button" data-filter="日常" type="button">日常</button>
+            <button class="tool-button" data-filter="旅行" type="button">旅行</button>
+            <button class="tool-button" data-filter="家人" type="button">家人</button>
+            <button class="tool-button" data-filter="朋友" type="button">朋友</button>
+            <button class="tool-button" data-filter="重要时刻" type="button">重要时刻</button>
+          </div>
+        </div>
+
+        <div class="album-grid" id="albumGrid" aria-live="polite"></div>
+        <div class="empty-state" id="emptyState">
+          <div class="empty-image" aria-hidden="true"></div>
+          <h3>还没有照片</h3>
+          <p>先添加一张照片，这里就会变成你的纪念册。</p>
+          <a class="secondary-action" href="#add-memory">去添加</a>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="lightbox" id="lightbox">
+      <button class="close-button" id="closeLightbox" type="button" aria-label="关闭">×</button>
+      <img id="lightboxImage" alt="" />
+      <div class="lightbox-copy">
+        <p id="lightboxMeta"></p>
+        <h3 id="lightboxTitle"></h3>
+        <p id="lightboxNote"></p>
+        <button class="danger-button" id="deleteMemory" type="button">删除这段回忆</button>
+      </div>
+    </dialog>
+
+    <footer class="site-footer">
+      <p>你的照片默认只存储在当前浏览器。真正上线前，请先确认哪些内容适合公开。</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

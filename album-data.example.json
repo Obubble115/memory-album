@@ -1,0 +1,12 @@
+[
+  {
+    "id": "example-001",
+    "title": "示例标题",
+    "date": "2026-07-09",
+    "place": "示例地点",
+    "category": "日常",
+    "note": "把这段文字换成这张照片背后的故事。",
+    "image": "photos/example.jpg",
+    "createdAt": "2026-07-09T00:00:00.000Z"
+  }
+]
