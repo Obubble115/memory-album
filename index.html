@@ -7,7 +7,7 @@
       name="description"
       content="一个基于小六壬与梅花易数思路的失物寻踪线上工具。"
     />
-    <title>寻物小占 | 小六壬与梅花易数</title>
+    <title>寻物 | 小六壬与梅花易数</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -15,11 +15,9 @@
       <nav class="topbar" aria-label="主导航">
         <a class="brand" href="#top">
           <span class="brand-mark" aria-hidden="true"></span>
-          <span>寻物小占</span>
+          <span>寻物</span>
         </a>
         <div class="nav-actions">
-          <a href="#divination">起局</a>
-          <a href="#guide">说明</a>
           <button class="icon-button" id="themeToggle" type="button" title="切换明暗主题" aria-label="切换明暗主题">
             <span aria-hidden="true">◐</span>
           </button>
@@ -28,38 +26,16 @@
 
       <section class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">Lost Item Finder</p>
-          <h1>用小六壬与梅花易数，给失物寻找一个方向。</h1>
+          <p class="eyebrow">小六壬与梅花易数</p>
+          <h1>小六壬与梅花易数</h1>
           <p>
             选择物品属性、遗失时间、最后记得的位置与方位，系统会生成一份寻物提示：
             可能方位、场景线索、高低位置、时间窗口与行动建议。
           </p>
           <div class="hero-actions">
             <a class="primary-action" href="#divination">开始起局</a>
-            <button class="secondary-action" id="quickFill" type="button">填入示例</button>
           </div>
         </div>
-
-        <aside class="compass-card" aria-label="方位盘">
-          <div class="compass">
-            <span class="north">北</span>
-            <span class="south">南</span>
-            <span class="east">东</span>
-            <span class="west">西</span>
-            <div class="compass-center">
-              <strong>寻</strong>
-              <small>物</small>
-            </div>
-          </div>
-          <div class="six-grid" aria-label="小六壬六神">
-            <span>大安</span>
-            <span>留连</span>
-            <span>速喜</span>
-            <span>赤口</span>
-            <span>小吉</span>
-            <span>空亡</span>
-          </div>
-        </aside>
       </section>
     </header>
 
@@ -222,7 +198,10 @@
             <p class="eyebrow">Result</p>
             <h2>寻物提示</h2>
           </div>
-          <button class="secondary-action" id="copyResult" type="button">复制结果</button>
+          <div class="result-actions">
+            <button class="secondary-action" id="restartSearch" type="button">重新起局</button>
+            <button class="secondary-action" id="copyResult" type="button">复制结果</button>
+          </div>
         </div>
         <div class="result-grid">
           <article class="answer-card highlight">
@@ -255,31 +234,7 @@
         </p>
       </section>
 
-      <section class="guide" id="guide">
-        <div class="section-heading">
-          <p class="eyebrow">Guide</p>
-          <h2>怎么使用</h2>
-        </div>
-        <div class="guide-grid">
-          <article>
-            <h3>先找现实线索</h3>
-            <p>回忆最后一次使用地点、移动路线、同行人员、付款记录、监控与失物招领。</p>
-          </article>
-          <article>
-            <h3>再用起局缩小范围</h3>
-            <p>把方位、场景、高低、遮挡、是否被移动这些线索合起来，先查最可能的三处。</p>
-          </article>
-          <article>
-            <h3>重要物品别拖</h3>
-            <p>证件、银行卡、手机、钥匙涉及安全风险，起局同时也要走挂失、定位、报警等现实流程。</p>
-          </article>
-        </div>
-      </section>
     </main>
-
-    <footer class="site-footer">
-      <p>寻物小占 · 小六壬与梅花易数线上辅助工具</p>
-    </footer>
 
     <script src="app.js"></script>
   </body>

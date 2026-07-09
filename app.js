@@ -170,8 +170,8 @@ const sceneHints = {
 const form = document.querySelector("#finderForm");
 const resultPanel = document.querySelector("#resultPanel");
 const themeToggle = document.querySelector("#themeToggle");
-const quickFill = document.querySelector("#quickFill");
 const copyResult = document.querySelector("#copyResult");
+const restartSearch = document.querySelector("#restartSearch");
 
 const today = new Date();
 document.querySelector("#lostDate").value = today.toISOString().slice(0, 10);
@@ -183,26 +183,20 @@ themeToggle.addEventListener("click", () => {
   localStorage.setItem("finder-theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
 });
 
-quickFill.addEventListener("click", () => {
-  document.querySelector("#itemName").value = "蓝牙耳机";
-  document.querySelector("#itemType").value = "phone";
-  document.querySelector("#itemColor").value = "white";
-  document.querySelector("#itemSize").value = "tiny";
-  document.querySelector("#lastScene").value = "shop";
-  document.querySelector("#lastDirection").value = "west";
-  document.querySelector("#movement").value = "hidden";
-  document.querySelector("#urgency").value = "normal";
-  document.querySelector("#extraNote").value = "最后一次可能是在餐厅结账后放进口袋。";
-  document.querySelector("#divination").scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const data = readFormData();
   const reading = buildReading(data);
   renderReading(reading);
   resultPanel.hidden = false;
-  resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  document.body.classList.add("result-mode");
+  window.scrollTo({ top: 0, behavior: "auto" });
+});
+
+restartSearch.addEventListener("click", () => {
+  document.body.classList.remove("result-mode");
+  resultPanel.hidden = true;
+  document.querySelector("#divination").scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 copyResult.addEventListener("click", async () => {

@@ -40,6 +40,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: hidden;
   background:
     linear-gradient(115deg, rgba(138, 31, 45, 0.08), transparent 32%),
     linear-gradient(245deg, rgba(44, 108, 92, 0.1), transparent 36%),
@@ -133,14 +134,12 @@ select {
 }
 
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.02fr) minmax(340px, 0.78fr);
+  display: block;
   align-items: center;
-  gap: clamp(28px, 6vw, 80px);
   max-width: 1180px;
   min-height: calc(92vh - 78px);
   margin: 0 auto;
-  padding: 28px 0 0;
+  padding: clamp(48px, 9vw, 118px) 0 0;
 }
 
 .eyebrow {
@@ -210,113 +209,12 @@ h1 {
   color: var(--ink);
 }
 
-.compass-card {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
-  box-shadow: var(--shadow);
-  padding: clamp(18px, 4vw, 32px);
-}
-
-.compass {
-  position: relative;
-  width: min(100%, 390px);
-  aspect-ratio: 1;
-  margin: 0 auto 22px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle, color-mix(in srgb, var(--gold) 18%, transparent) 0 24%, transparent 25%),
-    conic-gradient(from 0deg, rgba(138, 31, 45, 0.18), rgba(44, 108, 92, 0.2), rgba(185, 134, 47, 0.18), rgba(138, 31, 45, 0.18));
-}
-
-.compass::before,
-.compass::after {
-  content: "";
-  position: absolute;
-  inset: 11%;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-}
-
-.compass::after {
-  inset: 23%;
-}
-
-.compass span {
-  position: absolute;
-  font-weight: 800;
-  color: var(--accent);
-}
-
-.north {
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.south {
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.east {
-  right: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.west {
-  left: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.compass-center {
-  position: absolute;
-  inset: 35%;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: var(--surface);
-}
-
-.compass-center strong {
-  font-size: 42px;
-  line-height: 1;
-}
-
-.compass-center small {
-  color: var(--muted);
-  font-weight: 800;
-}
-
-.six-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.six-grid span {
-  min-height: 46px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  display: grid;
-  place-items: center;
-  background: var(--surface-strong);
-  color: var(--muted);
-  font-weight: 800;
-}
-
 main {
   padding: 0 clamp(16px, 4vw, 56px) 56px;
 }
 
 .workbench,
-.result-panel,
-.guide {
+.result-panel {
   max-width: 1180px;
   margin: 0 auto 42px;
 }
@@ -361,6 +259,7 @@ main {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
+  min-width: 0;
 }
 
 label span {
@@ -370,15 +269,30 @@ label span {
   font-weight: 800;
 }
 
+label {
+  min-width: 0;
+}
+
+.form-window,
+.field-grid > * {
+  min-width: 0;
+}
+
 input,
 textarea,
 select {
+  display: block;
+  min-width: 0;
   width: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
   color: var(--ink);
   padding: 12px 13px;
+}
+
+input[type="date"] {
+  max-width: 100%;
 }
 
 textarea {
@@ -425,6 +339,12 @@ textarea {
   gap: 20px;
 }
 
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .result-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -459,7 +379,6 @@ textarea {
 }
 
 .answer-card p,
-.guide p,
 .disclaimer {
   margin: 0;
   color: var(--muted);
@@ -491,31 +410,16 @@ textarea {
   font-size: 14px;
 }
 
-.guide-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+.result-mode .site-header,
+.result-mode .workbench {
+  display: none;
 }
 
-.guide article {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
-  padding: 18px;
-}
-
-.guide h3 {
-  margin: 0 0 8px;
-}
-
-.site-footer {
-  padding: 24px clamp(16px, 4vw, 56px) 36px;
-  color: var(--muted);
-  text-align: center;
+.result-mode main {
+  padding-top: clamp(18px, 4vw, 56px);
 }
 
 @media (max-width: 940px) {
-  .hero,
   .result-grid {
     grid-template-columns: 1fr;
   }
@@ -534,7 +438,6 @@ textarea {
 
   .field-grid,
   .method-row,
-  .guide-grid,
   .result-grid {
     grid-template-columns: 1fr;
   }
@@ -553,7 +456,15 @@ textarea {
     padding: 0 10px;
   }
 
-  .six-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .form-window {
+    padding: 14px;
+    overflow: hidden;
+  }
+
+  input,
+  textarea,
+  select {
+    padding-left: 11px;
+    padding-right: 11px;
   }
 }
