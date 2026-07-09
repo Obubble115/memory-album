@@ -5,140 +5,280 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="一个用于整理照片、文字和时间记忆的个人图集纪念册。"
+      content="一个基于小六壬与梅花易数思路的失物寻踪线上工具。"
     />
-    <title>我的图集纪念册</title>
+    <title>寻物小占 | 小六壬与梅花易数</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="app-header">
+    <header class="site-header" id="top">
       <nav class="topbar" aria-label="主导航">
-        <a class="brand" href="#top" aria-label="回到顶部">
+        <a class="brand" href="#top">
           <span class="brand-mark" aria-hidden="true"></span>
-          <span>我的图集纪念册</span>
+          <span>寻物小占</span>
         </a>
         <div class="nav-actions">
-          <a href="#album">图集</a>
-          <a href="#add-memory">添加</a>
+          <a href="#divination">起局</a>
+          <a href="#guide">说明</a>
           <button class="icon-button" id="themeToggle" type="button" title="切换明暗主题" aria-label="切换明暗主题">
             <span aria-hidden="true">◐</span>
           </button>
         </div>
       </nav>
 
-      <section class="cover" id="top">
-        <div class="cover-copy">
-          <p class="eyebrow">Personal Memory Album</p>
-          <h1>把照片、时间和当时的心情，安静地放在一起。</h1>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Lost Item Finder</p>
+          <h1>用小六壬与梅花易数，给失物寻找一个方向。</h1>
           <p>
-            这是你的中文个人图集纪念册第一版。上传照片，写下标题、日期、地点和一小段回忆，
-            它会保存在当前浏览器里。
+            选择物品属性、遗失时间、最后记得的位置与方位，系统会生成一份寻物提示：
+            可能方位、场景线索、高低位置、时间窗口与行动建议。
           </p>
-          <div class="cover-actions">
-            <a class="primary-action" href="#add-memory">添加第一张照片</a>
-            <button class="secondary-action" id="exportData" type="button">导出纪念册数据</button>
+          <div class="hero-actions">
+            <a class="primary-action" href="#divination">开始起局</a>
+            <button class="secondary-action" id="quickFill" type="button">填入示例</button>
           </div>
         </div>
-        <div class="cover-board" aria-label="纪念册预览">
-          <figure class="memory-polaroid main">
-            <div class="sample-photo photo-one" role="img" aria-label="日落下的海边剪影"></div>
-            <figcaption>那些值得被记住的瞬间</figcaption>
-          </figure>
-          <figure class="memory-polaroid side">
-            <div class="sample-photo photo-two" role="img" aria-label="窗边的花和书"></div>
-            <figcaption>某个温柔的下午</figcaption>
-          </figure>
-        </div>
+
+        <aside class="compass-card" aria-label="方位盘">
+          <div class="compass">
+            <span class="north">北</span>
+            <span class="south">南</span>
+            <span class="east">东</span>
+            <span class="west">西</span>
+            <div class="compass-center">
+              <strong>寻</strong>
+              <small>物</small>
+            </div>
+          </div>
+          <div class="six-grid" aria-label="小六壬六神">
+            <span>大安</span>
+            <span>留连</span>
+            <span>速喜</span>
+            <span>赤口</span>
+            <span>小吉</span>
+            <span>空亡</span>
+          </div>
+        </aside>
       </section>
     </header>
 
     <main>
-      <section class="panel add-panel" id="add-memory" aria-labelledby="addTitle">
+      <section class="workbench" id="divination" aria-labelledby="formTitle">
         <div class="section-heading">
-          <p class="eyebrow">Add Memory</p>
-          <h2 id="addTitle">添加一段回忆</h2>
+          <p class="eyebrow">Divination Desk</p>
+          <h2 id="formTitle">失物信息</h2>
         </div>
 
-        <form class="memory-form" id="memoryForm">
-          <label class="upload-zone" for="photoInput">
-            <input id="photoInput" name="photo" type="file" accept="image/*" required />
-            <span class="upload-icon" aria-hidden="true">＋</span>
-            <strong>选择照片</strong>
-            <small>支持 JPG、PNG、WebP。照片只保存在你的浏览器本地。</small>
-            <img id="photoPreview" alt="" hidden />
-          </label>
+        <form class="finder-form" id="finderForm">
+          <fieldset class="form-window">
+            <legend>一、物品属性</legend>
+            <div class="field-grid">
+              <label>
+                <span>物品名称</span>
+                <input id="itemName" name="itemName" type="text" maxlength="24" placeholder="例如：钥匙、耳机、身份证" required />
+              </label>
+              <label>
+                <span>物品类别</span>
+                <select id="itemType" name="itemType">
+                  <option value="key">钥匙门禁</option>
+                  <option value="phone">手机数码</option>
+                  <option value="document">证件票据</option>
+                  <option value="jewelry">饰品小物</option>
+                  <option value="clothes">衣物包袋</option>
+                  <option value="book">书本文具</option>
+                  <option value="medicine">药品用品</option>
+                  <option value="other">其他物品</option>
+                </select>
+              </label>
+              <label>
+                <span>颜色</span>
+                <select id="itemColor" name="itemColor">
+                  <option value="black">黑色/深色</option>
+                  <option value="white">白色/浅色</option>
+                  <option value="red">红色/粉色</option>
+                  <option value="green">绿色/青色</option>
+                  <option value="blue">蓝色/灰蓝</option>
+                  <option value="yellow">黄色/金色</option>
+                  <option value="brown">棕色/土色</option>
+                  <option value="mixed">多色/不确定</option>
+                </select>
+              </label>
+              <label>
+                <span>大小</span>
+                <select id="itemSize" name="itemSize">
+                  <option value="tiny">很小，可装进口袋</option>
+                  <option value="small">小件，手掌大小</option>
+                  <option value="medium">中等，包内可放</option>
+                  <option value="large">较大，需要手提</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
 
-          <div class="form-fields">
-            <label>
-              <span>标题</span>
-              <input id="memoryTitle" name="title" type="text" maxlength="32" placeholder="例如：第一次去海边" required />
+          <fieldset class="form-window">
+            <legend>二、时间与场景</legend>
+            <div class="field-grid">
+              <label>
+                <span>发现遗失的日期</span>
+                <input id="lostDate" name="lostDate" type="date" required />
+              </label>
+              <label>
+                <span>大概时辰</span>
+                <select id="lostHour" name="lostHour">
+                  <option value="0">子时 23:00-00:59</option>
+                  <option value="1">丑时 01:00-02:59</option>
+                  <option value="2">寅时 03:00-04:59</option>
+                  <option value="3">卯时 05:00-06:59</option>
+                  <option value="4">辰时 07:00-08:59</option>
+                  <option value="5">巳时 09:00-10:59</option>
+                  <option value="6">午时 11:00-12:59</option>
+                  <option value="7">未时 13:00-14:59</option>
+                  <option value="8">申时 15:00-16:59</option>
+                  <option value="9">酉时 17:00-18:59</option>
+                  <option value="10">戌时 19:00-20:59</option>
+                  <option value="11">亥时 21:00-22:59</option>
+                </select>
+              </label>
+              <label>
+                <span>最后记得的场景</span>
+                <select id="lastScene" name="lastScene">
+                  <option value="home">家中/宿舍</option>
+                  <option value="office">办公室/教室</option>
+                  <option value="transit">车站/车内/路上</option>
+                  <option value="shop">商店/餐厅/柜台</option>
+                  <option value="outdoor">户外/公园/操场</option>
+                  <option value="storage">柜子/抽屉/包内</option>
+                  <option value="unknown">不确定</option>
+                </select>
+              </label>
+              <label>
+                <span>最后记得的方位</span>
+                <select id="lastDirection" name="lastDirection">
+                  <option value="unknown">不确定</option>
+                  <option value="north">北</option>
+                  <option value="northeast">东北</option>
+                  <option value="east">东</option>
+                  <option value="southeast">东南</option>
+                  <option value="south">南</option>
+                  <option value="southwest">西南</option>
+                  <option value="west">西</option>
+                  <option value="northwest">西北</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-window">
+            <legend>三、补充判断</legend>
+            <div class="field-grid">
+              <label>
+                <span>你觉得它更可能</span>
+                <select id="movement" name="movement">
+                  <option value="still">还在原地附近</option>
+                  <option value="moved">被人移动过</option>
+                  <option value="hidden">被遮挡或夹住</option>
+                  <option value="taken">可能被人拿走</option>
+                  <option value="unknown">完全不确定</option>
+                </select>
+              </label>
+              <label>
+                <span>当前紧急程度</span>
+                <select id="urgency" name="urgency">
+                  <option value="low">不急，可以慢慢找</option>
+                  <option value="normal">正常，需要尽快找到</option>
+                  <option value="high">很急，影响证件/出行/安全</option>
+                </select>
+              </label>
+              <label class="wide">
+                <span>补充描述</span>
+                <textarea id="extraNote" name="extraNote" rows="4" maxlength="180" placeholder="例如：最后一次拿出来是在饭店结账，之后坐了出租车回家。"></textarea>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="method-row" aria-label="起局方式">
+            <label class="radio-card">
+              <input type="radio" name="method" value="combined" checked />
+              <span>综合判断</span>
             </label>
-            <label>
-              <span>日期</span>
-              <input id="memoryDate" name="date" type="date" />
+            <label class="radio-card">
+              <input type="radio" name="method" value="xiaoliuren" />
+              <span>小六壬</span>
             </label>
-            <label>
-              <span>地点</span>
-              <input id="memoryPlace" name="place" type="text" maxlength="28" placeholder="例如：厦门 / 家里的阳台" />
+            <label class="radio-card">
+              <input type="radio" name="method" value="meihua" />
+              <span>梅花易数</span>
             </label>
-            <label>
-              <span>分类</span>
-              <select id="memoryCategory" name="category">
-                <option value="日常">日常</option>
-                <option value="旅行">旅行</option>
-                <option value="家人">家人</option>
-                <option value="朋友">朋友</option>
-                <option value="重要时刻">重要时刻</option>
-              </select>
-            </label>
-            <label class="wide">
-              <span>想写下的话</span>
-              <textarea id="memoryNote" name="note" rows="4" maxlength="180" placeholder="写一句当时的感受、故事，或者想对未来说的话。"></textarea>
-            </label>
-            <button class="primary-action wide" type="submit">保存到纪念册</button>
           </div>
+
+          <button class="primary-action submit-button" type="submit">开始寻物</button>
         </form>
       </section>
 
-      <section class="album-section" id="album" aria-labelledby="albumTitle">
-        <div class="section-heading album-heading">
+      <section class="result-panel" id="resultPanel" aria-live="polite" hidden>
+        <div class="section-heading result-heading">
           <div>
-            <p class="eyebrow">Album</p>
-            <h2 id="albumTitle">我的图集</h2>
+            <p class="eyebrow">Result</p>
+            <h2>寻物提示</h2>
           </div>
-          <div class="album-tools" aria-label="图集工具">
-            <button class="tool-button active" data-filter="全部" type="button">全部</button>
-            <button class="tool-button" data-filter="日常" type="button">日常</button>
-            <button class="tool-button" data-filter="旅行" type="button">旅行</button>
-            <button class="tool-button" data-filter="家人" type="button">家人</button>
-            <button class="tool-button" data-filter="朋友" type="button">朋友</button>
-            <button class="tool-button" data-filter="重要时刻" type="button">重要时刻</button>
-          </div>
+          <button class="secondary-action" id="copyResult" type="button">复制结果</button>
         </div>
+        <div class="result-grid">
+          <article class="answer-card highlight">
+            <span class="card-label">优先方向</span>
+            <h3 id="directionResult"></h3>
+            <p id="directionDetail"></p>
+          </article>
+          <article class="answer-card">
+            <span class="card-label">可能位置</span>
+            <h3 id="placeResult"></h3>
+            <p id="placeDetail"></p>
+          </article>
+          <article class="answer-card">
+            <span class="card-label">小六壬</span>
+            <h3 id="sixResult"></h3>
+            <p id="sixDetail"></p>
+          </article>
+          <article class="answer-card">
+            <span class="card-label">梅花易数</span>
+            <h3 id="meiResult"></h3>
+            <p id="meiDetail"></p>
+          </article>
+        </div>
+        <div class="steps-box">
+          <h3>建议搜索顺序</h3>
+          <ol id="searchSteps"></ol>
+        </div>
+        <p class="disclaimer">
+          本工具属于传统术数思路的娱乐与辅助整理，不保证找回结果。证件、银行卡、手机等重要物品请同时及时挂失、报警或联系场所工作人员。
+        </p>
+      </section>
 
-        <div class="album-grid" id="albumGrid" aria-live="polite"></div>
-        <div class="empty-state" id="emptyState">
-          <div class="empty-image" aria-hidden="true"></div>
-          <h3>还没有照片</h3>
-          <p>先添加一张照片，这里就会变成你的纪念册。</p>
-          <a class="secondary-action" href="#add-memory">去添加</a>
+      <section class="guide" id="guide">
+        <div class="section-heading">
+          <p class="eyebrow">Guide</p>
+          <h2>怎么使用</h2>
+        </div>
+        <div class="guide-grid">
+          <article>
+            <h3>先找现实线索</h3>
+            <p>回忆最后一次使用地点、移动路线、同行人员、付款记录、监控与失物招领。</p>
+          </article>
+          <article>
+            <h3>再用起局缩小范围</h3>
+            <p>把方位、场景、高低、遮挡、是否被移动这些线索合起来，先查最可能的三处。</p>
+          </article>
+          <article>
+            <h3>重要物品别拖</h3>
+            <p>证件、银行卡、手机、钥匙涉及安全风险，起局同时也要走挂失、定位、报警等现实流程。</p>
+          </article>
         </div>
       </section>
     </main>
 
-    <dialog class="lightbox" id="lightbox">
-      <button class="close-button" id="closeLightbox" type="button" aria-label="关闭">×</button>
-      <img id="lightboxImage" alt="" />
-      <div class="lightbox-copy">
-        <p id="lightboxMeta"></p>
-        <h3 id="lightboxTitle"></h3>
-        <p id="lightboxNote"></p>
-        <button class="danger-button" id="deleteMemory" type="button">删除这段回忆</button>
-      </div>
-    </dialog>
-
     <footer class="site-footer">
-      <p>你的照片默认只存储在当前浏览器。真正上线前，请先确认哪些内容适合公开。</p>
+      <p>寻物小占 · 小六壬与梅花易数线上辅助工具</p>
     </footer>
 
     <script src="app.js"></script>
